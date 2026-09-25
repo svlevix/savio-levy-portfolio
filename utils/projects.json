@@ -1,0 +1,132 @@
+[
+  {
+    "slug": "nalu",
+    "title": "Vinheta Nalu",
+    "file": "vinheta nalu.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 4.37,
+    "category": "Motion Design",
+    "index": 1
+  },
+  {
+    "slug": "holograma",
+    "title": "Holograma Kaely",
+    "file": "Holograma Kaely.mp4",
+    "width": 2160,
+    "height": 3840,
+    "duration": 22.59,
+    "category": "Motion Design",
+    "index": 2
+  },
+  {
+    "slug": "cookies",
+    "title": "MY COOKIES — MOTION",
+    "file": "MY COOKIES - MOTION.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 29.96,
+    "category": "Motion Design",
+    "index": 3
+  },
+  {
+    "slug": "movimento",
+    "title": "Suavização com movimento",
+    "file": "Suavização com movimento.mp4",
+    "width": 1280,
+    "height": 720,
+    "duration": 13.05,
+    "category": "Motion Design",
+    "index": 4
+  },
+  {
+    "slug": "evento",
+    "title": "Evento fictício",
+    "file": "Evento fictício.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 20.04,
+    "category": "Motion Design",
+    "index": 5
+  },
+  {
+    "slug": "energetico",
+    "title": "ENERGÉTICO DRINK",
+    "file": "ENERGETICO DRINK.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 10.0,
+    "category": "Motion Design",
+    "index": 6
+  },
+  {
+    "slug": "comp",
+    "title": "Comp 1_5",
+    "file": "Comp 1_5.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 10.73,
+    "category": "Motion Design",
+    "index": 7
+  },
+  {
+    "slug": "galaxia",
+    "title": "PARALLAX GALÁXIA",
+    "file": "PARALLAX GALAXIA.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 14.95,
+    "category": "Motion Design",
+    "index": 8
+  },
+  {
+    "slug": "taca",
+    "title": "Taça",
+    "file": "taça.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 9.14,
+    "category": "Motion Design",
+    "index": 9
+  },
+  {
+    "slug": "gool",
+    "title": "GOOL SAVIO",
+    "file": "GOOL SAVIO.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 5.2,
+    "category": "Motion Design",
+    "index": 10
+  },
+  {
+    "slug": "culto",
+    "title": "Culto de domingo",
+    "file": "Culto de domingo.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 19.0,
+    "category": "Motion Design",
+    "index": 11
+  },
+  {
+    "slug": "comeco",
+    "title": "Começo",
+    "file": "começo.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 9.66,
+    "category": "Motion Design",
+    "index": 12
+  },
+  {
+    "slug": "intro",
+    "title": "LEVY ART",
+    "file": "INTRO LEVY.mp4",
+    "width": 1280,
+    "height": 720,
+    "duration": 3.11,
+    "category": "Motion Design",
+    "index": 13
+  }
+]

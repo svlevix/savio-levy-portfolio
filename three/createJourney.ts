@@ -105,7 +105,7 @@ export function createJourney(section:HTMLElement,host:HTMLElement,progress:HTML
  key.position.set(camera.position.x+3,4,z-2);blue.position.set(-3,1,z-8);
  let nearest=-1,dist=Infinity;panels.forEach(panel=>{const d=camera.position.z-panel.z;if(d>1&&d<23&&Math.abs(d-10)<dist){dist=Math.abs(d-10);nearest=panel.index}});if(p<.14||p>.78)nearest=-1;activate(nearest);displayLight.visible=!mobile&&nearest>=0;displayLight.position.set(camera.position.x,3.8,z+1);if(nearest>=0)displayLight.target.position.copy(panels[nearest].group.position);
  panels.forEach(panel=>{const d=camera.position.z-panel.z;panel.group.visible=d>-2&&d<(mobile?23:45)&&p<.83;const main=panel.index===nearest;const luminance=main?.65+.35*smooth(1-Math.abs(d-10)/16):.12+.12*clamp(1-Math.abs(d-10)/30);panel.mesh.material.color.setRGB(luminance,luminance,luminance);});
- const project=projects[nearest];const chapter=p<.14?'UM UNIVERSO EM MOVIMENTO':p>.78?'LEVY ART / A ASSINATURA':project?`${String(nearest+1).padStart(2,'0')} / ${project.title.toUpperCase()}`:'DESIGN, IDENTIDADE E MOVIMENTO';if(chapter!==lastLabel){label.textContent=chapter;lastLabel=chapter}
+ const project=projects[nearest];const chapter=p<.14?'UM UNIVERSO EM MOVIMENTO':p>.78?'LEVY ART / A ASSINATURA':project?`${String(nearest+1).padStart(2,'0')} / ${project.title.toUpperCase()}`:'PROJETOS';if(chapter!==lastLabel){label.textContent=chapter;lastLabel=chapter}
  if(mobile)panels.forEach(panel=>{panel.group.visible=panel.index===nearest;});
  const impact=clamp((p-.897)/.048);glass.visible=impact===0;glassEdges.visible=impact===0;
  // The video stays intact behind the physical plate, until the camera passes it.

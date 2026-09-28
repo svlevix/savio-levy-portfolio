@@ -9,7 +9,7 @@
     "install:ci": "node scripts/install-ci.mjs",
     "dev": "node scripts/local-preview.mjs dev",
     "build": "next build --webpack",
-    "start": "node scripts/serve-production.mjs",
+    "start": "next start --hostname 127.0.0.1 --port 4173",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
     "build:local": "node scripts/local-preview.mjs build"

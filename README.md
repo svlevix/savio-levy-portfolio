@@ -18,7 +18,7 @@ npm run build
 npm start
 ```
 
-O desenvolvimento local usa Vinext/Vite. A publicação usa Next.js com exportação estática: `npm run build` gera `out/`, incluindo a home, os 12 cases e todos os assets. `npm start` serve esse build em http://127.0.0.1:4173. A configuração `vercel.json` seleciona Next.js e o diretório `out`. Importe o repositório na Vercel sem variáveis de ambiente.
+O desenvolvimento local usa Vinext/Vite. A publicação usa Next.js: `npm run build` gera `.next/`, com a home e os 12 cases pré-renderizados. `npm start` serve esse build em http://127.0.0.1:4173. A configuração `vercel.json` seleciona Next.js. Se a porta estiver ocupada, use `npm start -- --port 4174`. Importe o repositório na Vercel sem variáveis de ambiente.
 
 ## Organização
 
@@ -68,3 +68,9 @@ O vídeo INTRO LEVY tem aproximadamente 3,11 segundos. A sequência aguarda sua 
 `local-preview.mjs` evita somente a consulta opcional do Vite a unidades de rede no Windows (`net use`), incompatível com o ambiente de execução utilizado. Não altera segurança, permissões ou configurações do computador.
 
 A tentativa de leitura pelo conector Higgsfield/After Effects não respondeu. Nenhum projeto de After Effects foi alterado. O site e o 3D foram construídos localmente.
+
+## Revisão ajustes-tunel
+
+Leia `REFINEMENTS.md` para escopo e validações desta revisão. Para verificar a integridade geométrica da placa e o retorno dos fragmentos na rolagem reversa: `node scripts/check-fracture.mjs` (Node 22.18+).
+
+O preview desta branch deve ser aprovado antes de qualquer merge para `main`.

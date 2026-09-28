@@ -37,8 +37,8 @@
 @media(max-width:800px){.selected .project-grid{row-gap:42px}.selected .project-caption{min-height:76px}}
 
 /* Hero typography follows the Poppins / Playfair Display reference. */
-.hero h1{font-family:"Poppins",Arial,sans-serif;font-size:clamp(30px,2.9vw,46px);font-weight:700;line-height:1.18;letter-spacing:-.045em;overflow:visible}
+.hero h1{font-family:"Poppins",Arial,sans-serif;font-size:clamp(30px,2.9vw,46px);font-weight:700;line-height:1.08;letter-spacing:-.035em;overflow:visible}
 .hero h1 em{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:700;letter-spacing:-.045em}
 .hero h1 i{font-style:italic}
-.hero h1 .title-line{padding:.12em .12em .18em 0;margin-bottom:-.18em;white-space:nowrap}
+.hero h1 .title-line{padding:.08em .14em .14em 0;margin-bottom:-.14em;white-space:nowrap}
 @media(max-width:800px){.hero h1{font-size:clamp(26px,7.5vw,44px)}}

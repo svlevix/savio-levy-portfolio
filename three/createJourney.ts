@@ -85,13 +85,14 @@ export function createJourney(section:HTMLElement,host:HTMLElement,progress:HTML
  // On a natural fast scroll, keep only the finale visible for a bounded interval;
  // the document continues scrolling and explicit navigation always bypasses it.
  let finishingAt=0,finishingFrom=.885,finished=false,finaleComplete=false,logoVisibleMs=0,lastFrame=0;
- let previousY=window.scrollY,lastInputAt=0,bypassUntil=0;
+ let previousY=window.scrollY,lastInputAt=-Infinity,bypassUntil=0;
  const releaseFinale=()=>{finishingAt=0;stage.classList.remove('is-finishing')};
- const noteInput=(event:Event)=>{if(event instanceof KeyboardEvent){if(event.key==='Escape'){releaseFinale();finished=true;return}if(!['ArrowDown','PageDown','End',' '].includes(event.key))return}lastInputAt=performance.now()};
+ const noteInput=(event:Event)=>{if(event instanceof KeyboardEvent){if(event.key==='Escape'){releaseFinale();finished=true;return}if(!['ArrowDown','PageDown','End',' '].includes(event.key))return}lastInputAt=performance.now();bypassUntil=0};
  const bypassNavigation=(event:Event)=>{const link=(event.target as Element).closest?.('a');if(link?.getAttribute('href')?.includes('#')){bypassUntil=performance.now()+2000;releaseFinale()}};
  const onScroll=()=>{
   const y=window.scrollY,now=performance.now(),rect=section.getBoundingClientRect();
   const end=y+rect.bottom-innerHeight,threshold=end-innerHeight*.2;
+  if(rect.top>innerHeight){finished=false;finaleComplete=false;logoVisibleMs=0;}
   if(!finished&&!finishingAt&&y>previousY&&previousY<threshold&&y>=threshold&&now-lastInputAt<1800&&now>bypassUntil){
    finished=true;
    if(logoVisibleMs<1400){finishingAt=now;finishingFrom=Math.max(.885,drawn);stage.classList.add('is-finishing');visible=true;if(!raf)raf=requestAnimationFrame(render)}

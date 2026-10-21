@@ -106,7 +106,7 @@ export function createJourney(section:HTMLElement,host:HTMLElement,progress:HTML
  timeline.to(state,{p:.13,duration:1.5,ease:'power1.inOut'}).to(state,{p:.53,duration:5,ease:'none'}).to(state,{p:.74,duration:1.7,ease:'none'}).to(state,{p:.84,duration:.8,ease:'power1.out'}).to(state,{p:.875,duration:.4,ease:'none'}).to(state,{p:.94,duration:.65,ease:'power2.in'}).to(state,{p:1,duration:1.1,ease:'power1.out'});
  function resize(){const w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)}resize();const ro=new ResizeObserver(resize);ro.observe(host);
  const visibility=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting||!!finishingAt;if(visible&&!raf)raf=requestAnimationFrame(render);if(!visible){panels.forEach(p=>p.video?.pause());intro.pause();}else{panels[loadedIndex]?.video?.play().catch(()=>{});if(introStarted&&!introDone)intro.play().catch(()=>{})}},{threshold:0});visibility.observe(stage);
- const displayPositions=panels.map(panel=>panel.group.position);
+ const displayPositions=panels.map(panel=>{const bounds=new THREE.Box3().setFromObject(panel.mesh).expandByScalar(.15);return {x:panel.group.position.x,z:panel.z,innerEdgeX:panel.group.position.x>0?bounds.min.x:bounds.max.x}});
  const target=new THREE.Vector3();const bgDark=new THREE.Color('#06070a'),bgLight=new THREE.Color('#edf1f5');
  function render(now:number){raf=0;if(dead||!visible)return;let p=desired;
  const elapsed=lastFrame?Math.min(now-lastFrame,100):0;lastFrame=now;

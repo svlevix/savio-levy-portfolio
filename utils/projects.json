@@ -50,18 +50,8 @@
     "index": 5
   },
   {
-    "slug": "energetico",
-    "title": "ENERGÉTICO DRINK",
-    "file": "ENERGETICO DRINK.mp4",
-    "width": 1080,
-    "height": 1920,
-    "duration": 10.0,
-    "category": "Motion Design",
-    "index": 6
-  },
-  {
     "slug": "comp",
-    "title": "Comp 1_5",
+    "title": "Evento",
     "file": "Comp 1_5.mp4",
     "width": 1920,
     "height": 1080,
@@ -105,13 +95,13 @@
     "file": "Culto de domingo.mp4",
     "width": 1080,
     "height": 1920,
-    "duration": 19.0,
+    "duration": 19,
     "category": "Motion Design",
     "index": 11
   },
   {
     "slug": "comeco",
-    "title": "Começo",
+    "title": "Motion Político",
     "file": "começo.mp4",
     "width": 1920,
     "height": 1080,

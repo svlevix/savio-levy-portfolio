@@ -5,8 +5,6 @@ import {RoomEnvironment} from 'three/examples/jsm/environments/RoomEnvironment.j
 import {projects,videoUrl} from '../utils/content';
 import {mountGalleryScreen} from './galleryFixtures';
 const clamp=(v:number,a=0,b=1)=>Math.min(b,Math.max(a,v));
-// The same angular S silhouette as the supplied brand, extruded into dark metal.
-function brandGeometry(){const points=[[416,386],[742,386],[887,500],[887,567],[729,567],[729,500],[569,500],[569,575],[887,720],[886,965],[556,965],[416,857],[416,785],[568,785],[568,854],[729,854],[729,784],[416,641]];const shape=new THREE.Shape();points.forEach(([x,y],i)=>{const a=(x-652)/290,b=(676-y)/290;i?shape.lineTo(a,b):shape.moveTo(a,b)});shape.closePath();return new THREE.ExtrudeGeometry(shape,{depth:.32,bevelEnabled:true,bevelThickness:.055,bevelSize:.04,bevelSegments:3,steps:1})}
 type Panel={mesh:THREE.Mesh<THREE.PlaneGeometry,THREE.MeshBasicMaterial>;group:THREE.Group;video:HTMLVideoElement|null;texture:THREE.VideoTexture|null;poster:THREE.Texture;slug:string;z:number;index:number};
 export function createJourney(section:HTMLElement,host:HTMLElement,progress:HTMLElement,label:HTMLElement){
  gsap.registerPlugin(ScrollTrigger);const mobile=matchMedia('(max-width:800px)').matches;
@@ -54,8 +52,9 @@ export function createJourney(section:HTMLElement,host:HTMLElement,progress:HTML
    const seam=new THREE.Mesh(new THREE.BoxGeometry(.03,10,.03),seamMat);seam.position.set(side*5.94,1,-spacing/2);module.add(seam);
   }
  }
- const s=new THREE.Mesh(brandGeometry(),new THREE.MeshPhysicalMaterial({color:'#35435d',metalness:1,roughness:.24,envMapIntensity:.75,clearcoat:.8,clearcoatRoughness:.18,emissive:'#001844',emissiveIntensity:.22}));scene.add(s);
- const loader=new THREE.TextureLoader();const panels:Panel[]=[];
+ const loader=new THREE.TextureLoader();const signatureTexture=loader.load('/assets/levy-art.png');signatureTexture.colorSpace=THREE.SRGBColorSpace;
+ const s=new THREE.Mesh(new THREE.PlaneGeometry(5.5,5.5*141/1011),new THREE.MeshBasicMaterial({map:signatureTexture,transparent:true,alphaTest:.01,depthWrite:false,side:THREE.DoubleSide,toneMapped:false}));scene.add(s);
+ const panels:Panel[]=[];
  // Only posters are initially uploaded to the GPU. Video sources are attached near the camera.
  projects.forEach((p,i)=>{const group=new THREE.Group();const h=mobile?(p.vertical?4.6:2.5):(p.vertical?4.5:3.5);const w=h*p.width/p.height;const z=-18-i*12.4;const x=mobile?0:(i%2===0?-1:1)*(p.vertical?3.5:3.6);group.position.set(x,.8,z);if(!mobile)group.rotation.y=(i%2===0?1:-1)*.24;
  const frame=new THREE.Mesh(new THREE.BoxGeometry(w+.10,h+.10,.24),metal);frame.position.z=-.13;group.add(frame);
@@ -82,17 +81,46 @@ export function createJourney(section:HTMLElement,host:HTMLElement,progress:HTML
  function activate(index:number){if(index===loadedIndex)return;loadedIndex=index;panels.forEach((p,i)=>{if(i!==index)release(p)});if(index<0)return;const p=panels[index];const v=document.createElement('video');v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';v.src=videoUrl(p.slug,mobile);p.video=v;p.texture=new THREE.VideoTexture(v);p.texture.colorSpace=THREE.SRGBColorSpace;v.addEventListener('loadeddata',()=>{if(p.video===v){p.mesh.material.map=p.texture;p.mesh.material.needsUpdate=true}});v.play().catch(()=>{});}
  intro.addEventListener('ended',()=>{introDone=true;introEndedAt=performance.now()});
  const introEl=section.querySelector('.motion-intro') as HTMLElement;const screenEl=section.querySelector('.entry-screen') as HTMLElement;const wordA=section.querySelector('.motion-word') as HTMLElement;const wordB=section.querySelector('.designer-word') as HTMLElement;const morph=section.querySelector('.morph-logo') as HTMLElement;const stage=section.querySelector('.journey-stage') as HTMLElement;
+ // Scroll progress alone can leave the sticky stage before its eased animation ends.
+ // On a natural fast scroll, keep only the finale visible for a bounded interval;
+ // the document continues scrolling and explicit navigation always bypasses it.
+ let finishingAt=0,finishingFrom=.885,finished=false,finaleComplete=false,logoVisibleMs=0,lastFrame=0;
+ let previousY=window.scrollY,lastInputAt=-Infinity,bypassUntil=0;
+ const releaseFinale=()=>{finishingAt=0;stage.classList.remove('is-finishing')};
+ const noteInput=(event:Event)=>{if(event instanceof KeyboardEvent){if(event.key==='Escape'){releaseFinale();finished=true;return}if(!['ArrowDown','PageDown','End',' '].includes(event.key))return}lastInputAt=performance.now();bypassUntil=0};
+ const bypassNavigation=(event:Event)=>{const link=(event.target as Element).closest?.('a');if(link?.getAttribute('href')?.includes('#')){bypassUntil=performance.now()+2000;releaseFinale()}};
+ const onScroll=()=>{
+  const y=window.scrollY,now=performance.now(),rect=section.getBoundingClientRect();
+  const end=y+rect.bottom-innerHeight,threshold=end-innerHeight*.2;
+  if(rect.top>innerHeight){finished=false;finaleComplete=false;logoVisibleMs=0;}
+  if(!finished&&!finishingAt&&y>previousY&&previousY<threshold&&y>=threshold&&now-lastInputAt<1800&&now>bypassUntil){
+   finished=true;
+   if(logoVisibleMs<1400){finishingAt=now;finishingFrom=Math.max(.885,drawn);stage.classList.add('is-finishing');visible=true;if(!raf)raf=requestAnimationFrame(render)}
+  }
+  if(finishingAt&&y<end-innerHeight)releaseFinale();
+  previousY=y;
+ };
+ window.addEventListener('wheel',noteInput,{passive:true});window.addEventListener('touchmove',noteInput,{passive:true});window.addEventListener('keydown',noteInput);
+ window.addEventListener('scroll',onScroll,{passive:true});document.addEventListener('click',bypassNavigation,true);
  const timeline=gsap.timeline({scrollTrigger:{trigger:section,start:'top top',end:'bottom bottom',scrub:.8,invalidateOnRefresh:true},onUpdate:()=>{desired=state.p}});
  // Nonlinear travel: contemplative opening, quicker experimental section, final pause.
  timeline.to(state,{p:.13,duration:1.5,ease:'power1.inOut'}).to(state,{p:.53,duration:5,ease:'none'}).to(state,{p:.74,duration:1.7,ease:'none'}).to(state,{p:.84,duration:2,ease:'power1.out'}).to(state,{p:.875,duration:1.5,ease:'none'}).to(state,{p:.94,duration:.65,ease:'power2.in'}).to(state,{p:1,duration:1.1,ease:'power1.out'});
  function resize(){const w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)}resize();const ro=new ResizeObserver(resize);ro.observe(host);
- const visibility=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible&&!raf)raf=requestAnimationFrame(render);if(!visible){panels.forEach(p=>p.video?.pause());intro.pause();}else{panels[loadedIndex]?.video?.play().catch(()=>{});if(introStarted&&!introDone)intro.play().catch(()=>{})}},{threshold:0});visibility.observe(stage);
+ const visibility=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting||!!finishingAt;if(visible&&!raf)raf=requestAnimationFrame(render);if(!visible){panels.forEach(p=>p.video?.pause());intro.pause();}else{panels[loadedIndex]?.video?.play().catch(()=>{});if(introStarted&&!introDone)intro.play().catch(()=>{})}},{threshold:0});visibility.observe(stage);
  const target=new THREE.Vector3();const bgDark=new THREE.Color('#06070a'),bgLight=new THREE.Color('#edf1f5');
  function render(now:number){raf=0;if(dead||!visible)return;let p=desired;
+ const elapsed=lastFrame?Math.min(now-lastFrame,100):0;lastFrame=now;
+ if(finishingAt){
+  const t=clamp((now-finishingAt)/900);p=THREE.MathUtils.lerp(finishingFrom,1,1-Math.pow(1-t,2));drawn=p;
+  if(now-finishingAt>=2400){finaleComplete=true;intro.pause();introDone=true;introEndedAt=now-1000;releaseFinale();const rect=stage.getBoundingClientRect();visible=rect.bottom>0&&rect.top<innerHeight;if(!visible)return}
+ }
+ if(finaleComplete&&desired>.86)p=1;
+ if(desired<.82)finaleComplete=false;
  // Let the complete 3.11-second logo animation finish before the glass impact.
- if(p>=.79&&!introStarted){introStarted=true;intro.src=videoUrl('intro',mobile);intro.onloadeddata=()=>{finalScreen.material.map=introTexture;finalScreen.material.needsUpdate=true};intro.play().catch(()=>{introDone=true;introEndedAt=now});}
- if(p>.865&&(!introDone||now-introEndedAt<650))p=.865;
+ if(p>=.79&&!introStarted&&!finishingAt&&!finaleComplete){introStarted=true;intro.src=videoUrl('intro',mobile);intro.onloadeddata=()=>{finalScreen.material.map=introTexture;finalScreen.material.needsUpdate=true};intro.play().catch(()=>{introDone=true;introEndedAt=now});}
+ if(!finishingAt&&p>.865&&(!introDone||now-introEndedAt<650))p=.865;
  drawn+=(p-drawn)*.1;p=drawn;progress.style.transform=`scaleX(${p})`;
+ if(p>.986)logoVisibleMs+=elapsed;
  const entry=clamp(p/.13);introEl.style.opacity=String(1-clamp((entry-.68)/.32));introEl.style.visibility=p>.14?'hidden':'visible';screenEl.style.transform=`translate(-50%,-50%) perspective(1000px) rotateY(${-entry*12}deg) rotateX(${entry*5}deg) scale(${1+Math.pow(entry,3)*5})`;wordA.style.transform=`translateX(${-entry*22}%)`;wordB.style.transform=`translateX(${entry*16}%)`;
  const travel=clamp((p-.12)/.68);let z=8-travel*176;if(p>.8)z=-168-clamp((p-.8)/.075)*4;if(p>.885)z=-172-clamp((p-.885)/.07)*19;
  camera.position.set(Math.sin(travel*Math.PI*3)*(mobile?.25:1.05),1.05+Math.sin(travel*9)*.25,z);target.set(Math.sin(travel*7)*.4,1,z-16);camera.lookAt(target);camera.rotateZ((mobile?.028:.09)*Math.sin(travel*5+1)*(1-clamp((p-.73)/.08)));
@@ -107,5 +135,5 @@ export function createJourney(section:HTMLElement,host:HTMLElement,progress:HTML
  renderer.render(scene,camera);raf=requestAnimationFrame(render);
  }
  const onVisibility=()=>{if(document.hidden){visible=false;panels.forEach(p=>p.video?.pause());intro.pause()}else{const r=stage.getBoundingClientRect();visible=r.bottom>0&&r.top<innerHeight;if(visible&&!raf)raf=requestAnimationFrame(render)}};document.addEventListener('visibilitychange',onVisibility);
- return()=>{dead=true;cancelAnimationFrame(raf);timeline.scrollTrigger?.kill();timeline.kill();ro.disconnect();visibility.disconnect();document.removeEventListener('visibilitychange',onVisibility);panels.forEach(release);intro.pause();intro.removeAttribute('src');intro.load();introTexture.dispose();finalPoster.dispose();panels.forEach(p=>p.poster.dispose());texts.forEach(t=>t.dispose());const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>();scene.traverse(obj=>{const m=obj as THREE.Mesh;if(m.geometry)geometries.add(m.geometry);if(m.material){(Array.isArray(m.material)?m.material:[m.material]).forEach(v=>materials.add(v))}});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());env.dispose();renderer.dispose();renderer.domElement.remove();};
+ return()=>{dead=true;releaseFinale();cancelAnimationFrame(raf);window.removeEventListener('wheel',noteInput);window.removeEventListener('touchmove',noteInput);window.removeEventListener('keydown',noteInput);window.removeEventListener('scroll',onScroll);document.removeEventListener('click',bypassNavigation,true);timeline.scrollTrigger?.kill();timeline.kill();ro.disconnect();visibility.disconnect();document.removeEventListener('visibilitychange',onVisibility);panels.forEach(release);intro.pause();intro.removeAttribute('src');intro.load();introTexture.dispose();finalPoster.dispose();signatureTexture.dispose();panels.forEach(p=>p.poster.dispose());texts.forEach(t=>t.dispose());const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>();scene.traverse(obj=>{const m=obj as THREE.Mesh;if(m.geometry)geometries.add(m.geometry);if(m.material){(Array.isArray(m.material)?m.material:[m.material]).forEach(v=>materials.add(v))}});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());env.dispose();renderer.dispose();renderer.domElement.remove();};
 }

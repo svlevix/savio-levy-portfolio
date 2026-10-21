@@ -83,7 +83,7 @@ export function createJourney(section:HTMLElement,host:HTMLElement,progress:HTML
  // On a natural fast scroll, keep only the finale visible for a bounded interval;
  // the document continues scrolling and explicit navigation always bypasses it.
  let finishingAt=0,finishingFrom=.885,finished=false,finaleComplete=false,logoVisibleMs=0,lastFrame=0;
- let previousY=window.scrollY,lastInputAt=-Infinity,bypassUntil=0;
+ let previousY=window.scrollY,lastInputAt=-Infinity,bypassUntil=window.location.hash?performance.now()+2500:0;
  const releaseFinale=()=>{finishingAt=0;stage.classList.remove('is-finishing')};
  const noteInput=(event:Event)=>{if(event instanceof KeyboardEvent){if(event.key==='Escape'){releaseFinale();finished=true;return}if(!['ArrowDown','PageDown','End',' '].includes(event.key))return}lastInputAt=performance.now();bypassUntil=0};
  const bypassNavigation=(event:Event)=>{const link=(event.target as Element).closest?.('a');if(link?.getAttribute('href')?.includes('#')){bypassUntil=performance.now()+2000;releaseFinale()}};

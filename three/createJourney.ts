@@ -53,7 +53,7 @@ export function createJourney(section:HTMLElement,host:HTMLElement,progress:HTML
   }
  }
  const loader=new THREE.TextureLoader();const signatureTexture=loader.load('/assets/levy-art.png');signatureTexture.colorSpace=THREE.SRGBColorSpace;
- const s=new THREE.Mesh(new THREE.PlaneGeometry(4.5,1),new THREE.MeshBasicMaterial({map:signatureTexture,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide,toneMapped:false}));scene.add(s);
+ const s=new THREE.Mesh(new THREE.PlaneGeometry(5.5,5.5*141/1011),new THREE.MeshBasicMaterial({map:signatureTexture,transparent:true,alphaTest:.01,depthWrite:false,side:THREE.DoubleSide,toneMapped:false}));scene.add(s);
  const panels:Panel[]=[];
  // Only posters are initially uploaded to the GPU. Video sources are attached near the camera.
  projects.forEach((p,i)=>{const group=new THREE.Group();const h=mobile?(p.vertical?4.6:2.5):(p.vertical?4.5:3.5);const w=h*p.width/p.height;const z=-18-i*12.4;const x=mobile?0:(i%2===0?-1:1)*(p.vertical?3.5:3.6);group.position.set(x,.8,z);if(!mobile)group.rotation.y=(i%2===0?1:-1)*.24;

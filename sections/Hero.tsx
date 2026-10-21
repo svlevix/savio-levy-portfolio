@@ -2,7 +2,7 @@
 import {useState,useRef,useEffect} from 'react';
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
-export function Logo(){return <span className="logo"><img src="/assets/levy-art.png" alt="LEVY ART — Savio Levy" width="960" height="210"/></span>}
+export function Logo(){return <span className="logo"><img src="/assets/levy-art.png" alt="LEVY ART — Savio Levy" width="1011" height="141"/></span>}
 export function Header(){
  const [open,setOpen]=useState(false),[workOpen,setWorkOpen]=useState(false);
  const close=()=>{setOpen(false);setWorkOpen(false)};

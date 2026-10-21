@@ -8,7 +8,6 @@ export function Header(){
  const close=()=>{setOpen(false);setWorkOpen(false)};
  return <header className="header" onKeyDown={e=>{if(e.key==='Escape')close()}}>
   <a href="/#inicio" aria-label="Savio Levy, início"><Logo/></a>
-  <a className="wordmark" href="/#inicio">SAVIO LEVY<span>DESIGN & MOTION</span></a>
   <button className="menu-toggle" aria-label={open?'Fechar menu':'Abrir menu'} aria-expanded={open} aria-controls="navigation" onClick={()=>setOpen(!open)}>{open?'FECHAR −':'MENU +'}</button>
   <nav id="navigation" className={open?'open':''} aria-label="Navegação principal">
    <a href="/#inicio" onClick={close}>Início</a><a href="/#sobre" onClick={close}>Sobre</a>

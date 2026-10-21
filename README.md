@@ -33,7 +33,7 @@ Design Social Media reúne quatro cards e três carrosséis. Cada trabalho tem d
 - `sections/Hero.tsx`: header, menu de categorias, marca e hero.
 - `sections/Journey.tsx` e `three/createJourney.ts`: jornada 3D e encerramento com a assinatura.
 - `sections/Editorial.tsx`: Sobre, categorias de trabalhos, contato e footer.
-- `components/SocialGallery.tsx`: carrossel com navegação por setas, teclado, miniaturas e rolagem horizontal.
+- `components/SocialGallery.tsx`: artes completas, com as faixas dos carrosséis em sequência vertical e sem navegação lateral.
 - `components/Media.tsx`: player com carregamento próximo à viewport e pausa fora da tela.
 - `utils/content.ts`: projetos, descrições, ordem, categorias e contatos.
 - `utils/projects.json`: metadados dos vídeos.
@@ -44,6 +44,10 @@ Design Social Media reúne quatro cards e três carrosséis. Cada trabalho tem d
 - `public/assets/social/`: imagens WebP e miniaturas das artes, sem modificar os arquivos originais.
 
 ## Navegação e movimento
+
+O header permanece fixo durante a navegação. Cards e botões têm cantos arredondados; os cards de Social Media preservam a arte inteira em uma grade compacta. Os carrosséis exibem as faixas completas, com os seis cards da Alfa organizados em duas faixas de três.
+
+No corredor, um Y extrudado da marca usa material metálico com reflexos azuis. Os textos flutuantes foram removidos; o atalho leva a Sobre mim. A assinatura final aparece no azul #0145F2, e a pausa antes da quebra do vidro foi reduzida.
 
 O menu Trabalhos mostra as duas categorias com transição de opacidade e deslocamento. No celular, as opções são abertas por toque; os controles também permitem navegação por teclado.
 

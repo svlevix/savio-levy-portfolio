@@ -36,6 +36,18 @@
 .footer-brand .logo{width:145px;height:40px}.socials img{object-fit:contain;mix-blend-mode:screen}
 .morph-logo .logo{width:min(75vw,760px);height:auto;aspect-ratio:1011/141}.morph-logo .logo{background:var(--primary);mask:url(/assets/levy-art.png) center/contain no-repeat;-webkit-mask:url(/assets/levy-art.png) center/contain no-repeat}.morph-logo .logo img{opacity:0}
 .journey-stage.is-finishing{position:fixed;inset:0;z-index:40}.journey-skip{position:relative;z-index:42}
+.journey-exit{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;visibility:hidden;overflow:hidden;contain:layout paint}
+.exit-haze{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,#03070d 4%,#03070de6 30%,#03070d80 62%,transparent 100%)}
+.exit-smoke{position:absolute;inset:0;overflow:hidden}.exit-smoke picture{display:contents}
+.smoke-layer{position:absolute;left:-10%;top:0;width:120%;height:110%;max-width:none;object-fit:contain;opacity:0;animation:exit-smoke-drift var(--smoke-duration) ease-in-out var(--smoke-delay) infinite both;animation-play-state:paused;transform-origin:50% 65%}
+.smoke-layer-1{--smoke-alpha:.42;--smoke-duration:27s;--smoke-delay:-9s;--from-x:-7%;--from-y:9%;--to-x:7%;--to-y:-6%;--from-scale:.94;--to-scale:1.17}
+.smoke-layer-2{--smoke-alpha:.34;--smoke-duration:36s;--smoke-delay:-23s;--from-x:8%;--from-y:4%;--to-x:-8%;--to-y:-8%;--from-scale:.88;--to-scale:1.13;top:8%}
+.smoke-layer-3{--smoke-alpha:.13;--smoke-duration:43s;--smoke-delay:-17s;--from-x:-3%;--from-y:14%;--to-x:5%;--to-y:-4%;--from-scale:.86;--to-scale:1.21;top:15%}
+.journey-exit[data-active="true"] .smoke-layer{animation-play-state:running;will-change:transform,opacity}
+@keyframes exit-smoke-drift{0%{opacity:0;transform:translate3d(var(--from-x),var(--from-y),0) scale(var(--from-scale))}22%,68%{opacity:var(--smoke-alpha)}100%{opacity:0;transform:translate3d(var(--to-x),var(--to-y),0) scale(var(--to-scale))}}
+.exit-logo{position:absolute;inset:0;display:grid;place-items:center;z-index:1}.exit-logo .logo{width:min(75vw,760px);height:auto;aspect-ratio:1011/141;filter:drop-shadow(0 0 16px #3e85ff88)}
+.calm-journey .journey-exit{position:relative;opacity:1;visibility:visible;height:min(60svh,560px)}.calm-journey .smoke-layer{animation:none;opacity:var(--smoke-alpha)}
+@media(max-width:800px){.smoke-layer{left:-30%;width:160%;height:90%;top:14%}.smoke-layer-3{display:none}.exit-logo .logo{width:78vw}.exit-haze{background:radial-gradient(ellipse at 50% 50%,#03070df5 10%,#03070d88 70%,transparent 100%)}}
 .calm-journey>.logo{width:min(75vw,760px);height:auto;aspect-ratio:1011/141;margin:65px auto 30px}
 .about{padding-top:90px}
 .work-categories{display:flex;gap:30px;flex-wrap:wrap;padding-bottom:35px;border-bottom:1px solid #c9cdd4}.work-categories a{display:flex;justify-content:space-between;gap:40px;min-width:245px;padding:18px 0;color:#0145f2;font-size:14px;border-bottom:2px solid #0145f2}.work-categories a:hover{color:#101216}

@@ -47,9 +47,11 @@ Design Social Media reúne quatro cards e três carrosséis. Cada trabalho tem d
 
 O header permanece fixo durante a navegação. Cards e botões têm cantos arredondados; os cards de Social Media preservam a arte inteira em uma grade compacta. Os carrosséis exibem as faixas completas, com os seis cards da Alfa organizados em duas faixas de três.
 
-No corredor, um Y extrudado da marca usa material metálico com reflexos azuis. Os textos flutuantes foram removidos; o atalho leva a Sobre mim. A assinatura final aparece no azul #0145F2, e a pausa antes da quebra do vidro foi reduzida.
+O corredor mantém sua arquitetura e as TVs dos projetos, sem objeto flutuante. A saída usa a marca fixa sobre três camadas de fumaça azulada, animadas lentamente com transform e opacity em CSS. A cena escura dissolve para a assinatura azul no fundo claro. Não há TV, vídeo ou quebra de vidro na saída.
 
 O menu Trabalhos mostra as duas categorias com transição de opacidade e deslocamento. No celular, as opções são abertas por toque; os controles também permitem navegação por teclado.
+
+As camadas de fumaça param fora de vista e quando a página está oculta. No celular, a camada mais densa é omitida; a preferência por movimento reduzido apresenta a composição estática.
 
 Na rolagem natural rápida, o encerramento da jornada permanece visível por um intervalo limitado para apresentar a assinatura. O documento continua rolando, atalhos com âncoras pulam a apresentação e Escape encerra essa etapa. A restauração de posição ao recarregar não conta como uma nova passagem pela jornada.
 

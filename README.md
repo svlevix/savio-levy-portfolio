@@ -39,7 +39,7 @@ Design Social Media reúne quatro cards e três carrosséis. Cada trabalho tem d
 - `utils/projects.json`: metadados dos vídeos.
 - `app/projetos/[slug]/page.tsx`: páginas de Motion e Social Media.
 - `app/globals.css`: composições desktop e mobile.
-- `public/assets/levy-art.png`: wordmark transparente fornecido, na proporção original 1011 × 141.
+- `public/assets/levy-art-atualizada.png`: wordmark transparente fornecido, na proporção original 444 × 74 (6:1), com as margens transparentes externas removidas.
 - `public/assets/instagram.png`: ícone fornecido para o footer.
 - `public/assets/social/`: imagens WebP e miniaturas das artes, sem modificar os arquivos originais.
 

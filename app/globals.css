@@ -34,7 +34,7 @@
 .work-menu.expanded .work-options{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
 .header nav .work-options a{display:flex;justify-content:space-between;gap:24px;padding:14px 12px;font-size:13px;white-space:nowrap}.work-options a:hover{background:#ffffff09}
 .footer-brand .logo{width:145px;height:40px}.socials img{object-fit:contain;mix-blend-mode:screen}
-.morph-logo .logo{width:min(75vw,760px);height:auto;aspect-ratio:1011/141}.morph-logo .logo{background:var(--primary);mask:url(/assets/levy-art.png) center/contain no-repeat;-webkit-mask:url(/assets/levy-art.png) center/contain no-repeat}.morph-logo .logo img{opacity:0}
+.morph-logo .logo{width:min(75vw,760px);height:auto;aspect-ratio:444/74}.morph-logo .logo{filter:none;box-shadow:none;background:var(--primary);mask:url(/assets/levy-art-atualizada.png) center/contain no-repeat;-webkit-mask:url(/assets/levy-art-atualizada.png) center/contain no-repeat}.morph-logo .logo img{opacity:0}
 .journey-stage.is-finishing{position:fixed;inset:0;z-index:40}.journey-skip{position:relative;z-index:42}
 .journey-exit{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;visibility:hidden;overflow:hidden;contain:layout paint}
 .exit-haze{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,#03070d 4%,#03070de6 30%,#03070d80 62%,transparent 100%)}
@@ -45,10 +45,10 @@
 .smoke-layer-3{--smoke-alpha:.13;--smoke-duration:43s;--smoke-delay:-17s;--from-x:-3%;--from-y:14%;--to-x:5%;--to-y:-4%;--from-scale:.86;--to-scale:1.21;top:15%}
 .journey-exit[data-active="true"] .smoke-layer{animation-play-state:running;will-change:transform,opacity}
 @keyframes exit-smoke-drift{0%{opacity:0;transform:translate3d(var(--from-x),var(--from-y),0) scale(var(--from-scale))}22%,68%{opacity:var(--smoke-alpha)}100%{opacity:0;transform:translate3d(var(--to-x),var(--to-y),0) scale(var(--to-scale))}}
-.exit-logo{position:absolute;inset:0;display:grid;place-items:center;z-index:1}.exit-logo .logo{width:min(75vw,760px);height:auto;aspect-ratio:1011/141;filter:drop-shadow(0 0 16px #3e85ff88)}
+.exit-logo{position:absolute;inset:0;display:grid;place-items:center;z-index:1}.exit-logo .logo{width:min(75vw,760px);height:auto;aspect-ratio:444/74;filter:drop-shadow(0 0 16px #3e85ff88)}
 .calm-journey .journey-exit{position:relative;opacity:1;visibility:visible;height:min(60svh,560px)}.calm-journey .smoke-layer{animation:none;opacity:var(--smoke-alpha)}
 @media(max-width:800px){.smoke-layer{left:-30%;width:160%;height:90%;top:14%}.smoke-layer-3{display:none}.exit-logo .logo{width:78vw}.exit-haze{background:radial-gradient(ellipse at 50% 50%,#03070df5 10%,#03070d88 70%,transparent 100%)}}
-.calm-journey>.logo{width:min(75vw,760px);height:auto;aspect-ratio:1011/141;margin:65px auto 30px}
+.calm-journey>.logo{width:min(75vw,760px);height:auto;aspect-ratio:444/74;margin:65px auto 30px}
 .about{padding-top:90px}
 .work-categories{display:flex;gap:30px;flex-wrap:wrap;padding-bottom:35px;border-bottom:1px solid #c9cdd4}.work-categories a{display:flex;justify-content:space-between;gap:40px;min-width:245px;padding:18px 0;color:#0145f2;font-size:14px;border-bottom:2px solid #0145f2}.work-categories a:hover{color:#101216}
 .work-category{padding-top:80px;scroll-margin-top:0}.category-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:45px}.category-heading .eyebrow{color:#616b7d;font-size:10px}.category-heading h3{font-size:clamp(42px,5.6vw,82px);letter-spacing:-.065em;font-weight:500;line-height:1.05;margin:20px 0 0}.category-heading h3 span{color:#0145f2}.category-heading>p{max-width:290px;line-height:1.8;color:#656b77;font-size:14px}
